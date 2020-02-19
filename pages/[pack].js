@@ -19,8 +19,14 @@ const PackageInfo = ({ packages, url }) => {
             </Head>
             <h1>Subpage: {pack}</h1>
             {packageInfo && Object.keys(packageInfo)
-                .map((key) => 
-                (<h4 className="items">{key}: {packageInfo[key]}</h4>))}
+                .map((key) => {
+                    if (key == 'Depends') {
+                        const split = packageInfo[key].split(', ');
+                        return split.map((item) => ( <a href={ "http://localhost:3000/" + item.split(' ')[0] }>{ item.split(' ')[0]}</a>));
+                        return (<h4>{packageInfo[key] }</h4>)
+                    }
+                    return (<h4 className="items">{key}: {packageInfo[key]}</h4>);
+                })}
         <style jsx>{`
         .items {
           color: black;
