@@ -10,7 +10,6 @@ const PackageInfo = ({ packages, url }) => {
 
     const packageInfo = packages.find((item) => item.Package === pack);
 
-
     return (
         <div className="bc">
             <Head>
@@ -18,17 +17,27 @@ const PackageInfo = ({ packages, url }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <h1>Subpage: {pack}</h1>
-             {packageInfo && Object.keys(packageInfo)
+            {packageInfo && Object.keys(packageInfo)
                 .map((key) => {
-                    if (key == 'Depends') {
-                        //return (<h4> {key} </h4> )
+                    if (key == 'Depends' || key == 'Pre-Depends') {
                         const split = packageInfo[key].split(', ');
-                        return split.map((item) => (<a className="items" href={ "http://localhost:3000/" + item.split(' ')[0]}> {item.split(' ')[0]}<br></br></a>));
+                        return (
+                            <div className='items'>
+                                <h4 className='depend'> {key}: </h4>
+                                {split.map((item) => (
+                                    <>
+                                        <a className="items" href={"http://localhost:3000/" + item.split(' ')[0]}>{item.split(' ')[0]}</a>&nbsp;
+                                  </>))}
+                                <br />
+                            </div>
+                        );
                     }
                     return (<h4 className="items">{key}: {packageInfo[key]}</h4>);
                 })}
-        <style jsx>{`
+            <style jsx>{`
         .items {
+            margin: 0;
+            padding-bottom: 32px;
           color: black;
         }
         .bc {
@@ -36,8 +45,12 @@ const PackageInfo = ({ packages, url }) => {
             width: 100%;
             height: 2000px;
         }
+        .depend {
+            display: inline-block;
+            display: inline;
+        }
       `}</style>
-      </div>
+        </div>
     )
 }
 
