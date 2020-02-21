@@ -18,12 +18,12 @@ const PackageInfo = ({ packages, url }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <h1>Subpage: {pack}</h1>
-            {packageInfo && Object.keys(packageInfo)
+             {packageInfo && Object.keys(packageInfo)
                 .map((key) => {
                     if (key == 'Depends') {
+                        //return (<h4> {key} </h4> )
                         const split = packageInfo[key].split(', ');
-                        return split.map((item) => ( <a href={ "http://localhost:3000/" + item.split(' ')[0] }>{ item.split(' ')[0]}</a>));
-                        return (<h4>{packageInfo[key] }</h4>)
+                        return split.map((item) => (<a className="items" href={ "http://localhost:3000/" + item.split(' ')[0]}> {item.split(' ')[0]}<br></br></a>));
                     }
                     return (<h4 className="items">{key}: {packageInfo[key]}</h4>);
                 })}
